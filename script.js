@@ -24,3 +24,26 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
     output.textContent = "No content generated or there was an error.";
   }
 });
+async function generateText(prompt) {
+  const apiKey = "YOUR_API_KEY"; // استبدل YOUR_API_KEY بمفتاحك
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }]
+    })
+  });
+
+  const data = await response.json();
+  const result = data.choices?.[0]?.message?.content || "لا يوجد رد.";
+  document.getElementById("result").textContent = result;
+}
+
+document.getElementById("generateBtn").addEventListener("click", () => {
+  const userInput = document.getElementById("userInput").value;
+  generateText(userInput);
+});
