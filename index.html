@@ -21,3 +21,37 @@
 <button id="generateBtn">تشغيل الأداة</button>
 <div id="result" style="margin-top: 20px;"></div>
 <script src="script.js"></script>
+<h2>أضف أداة جديدة</h2>
+<form id="toolForm">
+  <input type="text" id="toolName" placeholder="اسم الأداة" required />
+  <input type="text" id="toolDescription" placeholder="وصف الأداة" required />
+  <input type="url" id="toolLink" placeholder="رابط الأداة" required />
+  <button type="submit">إضافة الأداة</button>
+</form>
+
+<div id="toolList"></div>
+
+<script>
+  const form = document.getElementById('toolForm');
+  const list = document.getElementById('toolList');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('toolName').value;
+    const description = document.getElementById('toolDescription').value;
+    const link = document.getElementById('toolLink').value;
+
+    const toolDiv = document.createElement('div');
+    toolDiv.innerHTML = `
+      <h3>${name}</h3>
+      <p>${description}</p>
+      <a href="${link}" target="_blank">زيارة الأداة</a>
+      <hr>
+    `;
+    list.appendChild(toolDiv);
+
+    form.reset();
+  });
+</script>
+
