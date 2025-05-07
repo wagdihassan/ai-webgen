@@ -1,57 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI WebGen</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      padding: 20px;
+      direction: rtl;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #toolList div {
+      background: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+    }
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>AI Web Generator</h1>
-    <textarea id="promptInput" placeholder="Describe your app idea..."></textarea>
-    <button id="generateBtn">Generate App</button>
-    <pre id="resultOutput">Result will appear here...</pre>
-  </div>
-  <script src="script.js"></script>
+  <h1>مرحبًا بك في AI WebGen</h1>
+  <h2>أضف أداة جديدة</h2>
+  <form id="toolForm">
+    <input type="text" id="toolName" placeholder="اسم الأداة" required />
+    <input type="text" id="toolDescription" placeholder="وصف الأداة" required />
+    <input type="url" id="toolLink" placeholder="رابط الأداة" required />
+    <button type="submit">إضافة الأداة</button>
+  </form>
+
+  <div id="toolList"></div>
+
+  <script>
+    const form = document.getElementById('toolForm');
+    const list = document.getElementById('toolList');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('toolName').value;
+      const description = document.getElementById('toolDescription').value;
+      const link = document.getElementById('toolLink').value;
+
+      const toolDiv = document.createElement('div');
+      toolDiv.innerHTML = `
+        <h3>${name}</h3>
+        <p>${description}</p>
+        <a href="${link}" target="_blank">زيارة الأداة</a>
+      `;
+      list.appendChild(toolDiv);
+
+      form.reset();
+    });
+  </script>
 </body>
 </html>
-<h2>جرّب أداة OpenAI</h2>
-<input type="text" id="userInput" placeholder="اكتب سؤالك هنا..." />
-<button id="generateBtn">تشغيل الأداة</button>
-<div id="result" style="margin-top: 20px;"></div>
-<script src="script.js"></script>
-<h2>أضف أداة جديدة</h2>
-<form id="toolForm">
-  <input type="text" id="toolName" placeholder="اسم الأداة" required />
-  <input type="text" id="toolDescription" placeholder="وصف الأداة" required />
-  <input type="url" id="toolLink" placeholder="رابط الأداة" required />
-  <button type="submit">إضافة الأداة</button>
-</form>
-
-<div id="toolList"></div>
-
-<script>
-  const form = document.getElementById('toolForm');
-  const list = document.getElementById('toolList');
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById('toolName').value;
-    const description = document.getElementById('toolDescription').value;
-    const link = document.getElementById('toolLink').value;
-
-    const toolDiv = document.createElement('div');
-    toolDiv.innerHTML = `
-      <h3>${name}</h3>
-      <p>${description}</p>
-      <a href="${link}" target="_blank">زيارة الأداة</a>
-      <hr>
-    `;
-    list.appendChild(toolDiv);
-
-    form.reset();
-  });
-</script>
-
